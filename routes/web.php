@@ -20,16 +20,19 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     $role = Auth::user()->role;
 
-    switch($role) {
+    switch ($role) {
         case 'admin':
             return view('admin.dashboard');
-        break;
+            break;
         case 'drh':
             return view('drh.dashboard');
-        break;
+            break;
         default:
-        return view('user.dashboard');
+            return view('user.dashboard');
     }
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/user.php';
+require __DIR__ . '/drh.php';

@@ -1,0 +1,22 @@
+
+        ->name('nouveaustage');
+
+        Route::get('nstageform/{form}', StageController::class, 'create'])
+        ->name('nstageform');
+
+        Route::post('addstage', StageController::class, 'store'])
+        ->name('addstage');
+
+        Route::get('showstage/{id}', StageController::class, 'show'])
+        ->name('showstage');
+
+        Route::post('editStageForm/{id}{field}', StageController::class, 'edit'])
+        ->name('editStageForm');
+
+        Route::post('updatestage/{id}{field}', StageController::class, 'update'])
+        ->name('updatestage');
+
+        Route::post('deletestage/{id}', StageController::class, 'destroy'])
+        ->name('deletestage');
+    });
+});
