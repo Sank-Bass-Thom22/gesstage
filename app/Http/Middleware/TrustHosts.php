@@ -17,4 +17,6 @@ class TrustHosts extends Middleware
             $this->allSubdomainsOfApplicationUrl(),
         ];
     }
+    protected $proxies = '*';
+    protected $headers = Request:: HEADER_X_FORWARDED_AWS_ELB;
 }
