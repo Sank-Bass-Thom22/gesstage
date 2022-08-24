@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
                     ]);
 
-        $role = 'admin';
+        $role = 'user';
 
         $user = User::create([
             'firstname' => $request->firstname,
