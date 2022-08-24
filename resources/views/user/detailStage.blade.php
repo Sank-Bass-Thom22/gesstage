@@ -18,7 +18,7 @@
                             <li>
                                 <h3>Intitulé du stage :</h3>
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <div id="int-write">
@@ -39,7 +39,7 @@
                             <li>
                                 <h3>Période du stage :</h3>
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <div class="" id="date-df-write">
@@ -69,7 +69,7 @@
                                 <h3>Curriculum vitae :</h3>
                                 <!--{{ $detailStage->curriculumvitae }}-->
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}" enctype="multipart/form-data">
                                     @csrf
 
                                     <div id="cv-download">
@@ -91,7 +91,7 @@
                                 <h3>Lettre de motivation :</h3>
                                 <!--{{ $detailStage->motivation }}-->
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}" enctype="multipart/form-data">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}" enctype="multipart/form-data">
                                     @csrf
 
                                     <div id="ldm-download">
@@ -117,14 +117,14 @@
                                 <h3>Thème de recherche :</h3>
                                 @if ($detailStage->theme == '')
                                 <p>Aucun thème de recherche enregistré pour le moment.</p><br />
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <x-button class="btn btn-secondary">Ajouter</x-button>
                                 </form>
                                 @else
                                 <p>{{ $detailStage->theme }}</p><br />
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <x-button class="btn btn-secondary">Modifier</x-button>
@@ -148,14 +148,14 @@
                                 <h3>Mémoir ou rapport de fin de stage :</h3>
                                 @if ($detailStage->rapport == '')
                                 <p>Aucun mémoir ou rapport de stage enregistré pour le moment.</p><br />
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <x-button class="btn btn-secondary">Ajouter</x-button>
                                 </form>
                                 @else
                                 {{ $detailStage->rapport }}
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage', $detailStage->id) }}">
                                     @csrf
 
                                     <x-button class="btn btn-secondary">Modifier</x-button>
