@@ -26,11 +26,13 @@
                             </li>
                             <li>
                                 <h3>Curriculum vitae :</h3>
-                                {{ $showRequest->curriculumvitae }}
+                                <!--{{ $showRequest->curriculumvitae }}-->
+                                <a href="curriculum.pdf">curriculum-vitae.pdf</a>
                             </li>
                             <li>
                                 <h3>Lettre de motivation :</h3>
-                                {{ $showRequest->motivation }}
+                                <!--{{ $showRequest->motivation }}-->
+                                <a href="motivation.pdf">lettre-de-motivation.pdf</a>
                             </li>
                             @if ($showRequest->approbation == true)
                             <li>
