@@ -19,7 +19,7 @@ class NStageController extends Controller
     public function index()
     {
         $id_user = Auth::user()->id;
-        $allStage = Nstage::where('id_user', $id_user)->select('id', 'intitule', 'datedebut', 'datefin')->get();
+        $allStage = Nstage::where('id_user', $id_user)->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin')->get();
 
         return view('user.listeStage', compact('allStage'));
     }

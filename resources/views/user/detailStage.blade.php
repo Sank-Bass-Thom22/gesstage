@@ -17,46 +17,98 @@
                         <ul>
                             <li>
                                 <h3>Intitulé du stage :</h3>
-                                {{ $detailStage->intitule }}
                                 @if ($detailStage->invitation == false)
                                 <form method="POST" action="{{ route ('listestage') }}">
                                     @csrf
 
-                                    <x-button class="btn btn-secondary">Modifier</x-button>
+                                    <div id="int-write">
+                                        {{ $detailStage->intitule }}
+                                    </div>
+
+                                    <div id="int-read" style="visibility:hidden">
+                                        <x-input id="intitule" class="block mt-1 w-full" type="text" name="intitule" :value="__($detailStage->intitule)" required autofocus />
+                                    </div>
+
+                                    <x-button class="btn btn-secondary" id="int-mod">Modifier</x-button>
+                                    <x-button class="btn btn-secondary" style="visibility:hidden" id="int-val">Valider</x-button>
                                 </form>
+                                @else
+                                <div id="int-write-x">{{ $detailStage->intitule }}</div>
                                 @endif
                             </li>
                             <li>
                                 <h3>Période du stage :</h3>
-                                du {{ $detailStage->datedebut }} au {{ $detailStage->datefin }}
                                 @if ($detailStage->invitation == false)
                                 <form method="POST" action="{{ route ('listestage') }}">
                                     @csrf
 
-                                    <x-button class="btn btn-secondary">Modifier</x-button>
+                                    <div class="" id="date-df-write">
+                                        du {{ $detailStage->datedebut }} au {{ $detailStage->datefin }}
+                                    </div>
+
+                                    <div style="visibility:hidden" id="debut-read">
+                                        <x-label for="datedebut" :value="__('Début du stage')" />
+
+                                        <x-input id="datedebut" class="block mt-1 w-full" type="date" name="datedebut" :value="__($detailStage->datedebut)" required autofocus />
+                                    </div>
+
+                                    <div style="visibility:hidden" id="fin-read">
+                                        <x-label for="datefin" :value="__('Fin du stage')" />
+
+                                        <x-input id="datefin" class="block mt-1 w-full" type="date" name="datefin" :value="__($detailStage->datefin)" required autofocus />
+                                    </div>
+
+                                    <x-button class="btn btn-secondary" id="date-df-mod">Modifier</x-button>
+                                    <x-button class="btn btn-secondary" style="visibility:hidden" id="date-df-val">Valider</x-button>
                                 </form>
+                                @else
+                                <div id="date-df-write-x">du {{ $detailStage->datedebut }} au {{ $detailStage->datefin }}</div>
                                 @endif
                             </li>
                             <li>
                                 <h3>Curriculum vitae :</h3>
-                                {{ $detailStage->curriculumvitae }}
+                                <!--{{ $detailStage->curriculumvitae }}-->
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage') }}" enctype="multipart/form-data">
                                     @csrf
 
-                                    <x-button class="btn btn-secondary">Mettre à jour</x-button>
+                                    <div id="cv-download">
+                                        <a href="Curriculum-vitae/ACg7mAEH5d0zoXYbR70d45rkYTwa8GqMN8jDfoej.pdf">curriculum-vitae.pdf</a>
+                                    </div>
+
+                                    <div class="mt-4" style="visibility:hidden" id="cv-upload">
+                                        <x-input id="curriculumvitae" class="block mt-1 w-full" type="file" name="curriculumvitae" required />
+                                    </div>
+
+                                    <x-button class="btn btn-secondary" id="cv-mod">Mettre à jour</x-button>
+                                    <x-button class="btn btn-secondary" style="visibility:hidden" id="cv-val">Valider</x-button>
                                 </form>
+                                @else
+                                <div id="cv-download-x"><a href="Curriculum-vitae/ACg7mAEH5d0zoXYbR70d45rkYTwa8GqMN8jDfoej.pdf">curriculum-vitae.pdf</a></div>
                                 @endif
                             </li>
                             <li>
                                 <h3>Lettre de motivation :</h3>
-                                {{ $detailStage->motivation }}
+                                <!--{{ $detailStage->motivation }}-->
                                 @if ($detailStage->invitation == false)
-                                <form method="POST" action="{{ route ('listestage') }}">
+                                <form method="POST" action="{{ route ('listestage') }}" enctype="multipart/form-data">
                                     @csrf
 
-                                    <x-button class="btn btn-secondary">Mettre à jour</x-button>
+                                    <div id="ldm-download">
+                                        <a href="Lettre-de-motivation/EDGrNdNaPEM9ecJhU25vRTFb6RyQmyq7c3TKratc.pdf">lettre-de-motivation.pdf</a>
+                                    </div>
+
+                                    <div id="" style="visibility:hidden" id="ldm-upload">
+                                        <x-label for="motivation" :value="__('Lettre de motivation')" />
+
+                                        <x-input id="motivation" class="block mt-1 w-full" type="file" name="motivation" required />
+                                    </div>
+
+                                    <x-button class="btn btn-secondary" id="ldm-mod">Mettre à jour</x-button>
+                                    <x-button class="btn btn-secondary" style="visibility:hidden" id="ldm-val">Valider</x-button>
                                 </form>
+                                @else
+                                <div id="ldm-download-x"><a href="Lettre-de-motivation/EDGrNdNaPEM9ecJhU25vRTFb6RyQmyq7c3TKratc.pdf">lettre-de-motivation.pdf</a></div>
                                 @endif
                             </li>
 
@@ -114,7 +166,7 @@
                         </ul><br />
 
                         <div>
-                        <a href="{{ route('listestage') }}" class="btn btn-secondary">Fermer</a>
+                            <a href="{{ route('listestage') }}" class="btn btn-secondary">Fermer</a>
                         </div>
                     </section>
                 </div>
