@@ -26,7 +26,7 @@
 
                         <button type="submit" class="btn btn-secondary">Supprimer</button>
                     </form>
-                    <form method="POST" action="{{ route('updatedrh', $showDrh->id) }}">
+                    <form method="GET" action="{{ route('editdrh', $showDrh->id) }}">
                         @csrf
 
                         <button type="submit" class="btn btn-secondary">Modifier</button>

@@ -52,16 +52,19 @@ Route::middleware('auth')->group(function () {
         Route::get('drhform', [DrhController::class, 'create'])
             ->name('drhform');
 
+        Route::post('registerdrh', [DrhController::class, 'store'])
+            ->name('registerdrh');
+
         Route::get('showdrh/{id}', [DrhController::class, 'show'])
             ->name('showdrh');
 
-            Route::post('registerdrh', [DrhController::class, 'store'])
-            ->name('registerdrh');
+        Route::get('editdrh/{id}', [DrhController::class, 'edit'])
+            ->name('editdrh');
 
-            Route::post('updatedrh/{id}', [DrhController::class, 'update'])
+        Route::post('updatedrh/{id}', [DrhController::class, 'update'])
             ->name('updatedrh');
 
-            Route::post('deletedrh/{id}', [DrhController::class, 'destroy'])
+        Route::post('deletedrh/{id}', [DrhController::class, 'destroy'])
             ->name('deletedrh');
     });
 });

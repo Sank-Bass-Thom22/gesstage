@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+// use App\Providers\RouteServiceProvider;
+// use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 
@@ -51,7 +51,6 @@ class DrhController extends Controller
         ]);
 
         $role = 'drh';
-
         User::create([
             'firstname' => $request->firstname,
             'name' => $request->name,
@@ -73,7 +72,7 @@ class DrhController extends Controller
     {
         $showDrh = User::find($id);
 
-		return view('admin.detailDrh', compact('showDrh'));
+        return view('admin.detailDrh', compact('showDrh'));
     }
 
     /**
@@ -86,7 +85,7 @@ class DrhController extends Controller
     {
         $editDrh = User::find($id);
 
-		return view('admin.editDrhForm', compact('editDrh'));
+        return view('admin.editDrhForm', compact('editDrh'));
     }
 
     /**
@@ -98,7 +97,21 @@ class DrhController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'firstname' => ['required', 'string', 'max:50'],
+            'name' => ['required', 'string', 'max:25'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        User::whereId($id)->update([
+            'firstname' => $request->firstname,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
+
+        return redirect()->route('listedrh')->with('success', 'DRH modifié avec succès !');
     }
 
     /**
@@ -110,8 +123,8 @@ class DrhController extends Controller
     public function destroy($id)
     {
         $drh = User::find($id);
-		$drh->delete();
+        $drh->delete();
 
-		return redirect()->route('listedrh')->with('success', 'Compte supprimé avec succès!');
+        return redirect()->route('listedrh')->with('success', 'Compte supprimé avec succès!');
     }
 }
