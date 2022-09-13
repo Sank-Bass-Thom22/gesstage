@@ -13,5 +13,14 @@ Route::middleware('auth')->group(function () {
 
         Route::post('destroyrequest/{id}', [StageController::class, 'destroy'])
             ->name('DRHdestroyrequest');
+
+        Route::post('DRHinvitation/{id}', [StageController::class, 'invitation'])
+            ->name('DRHinvitation');
+
+        Route::post('DRHmaitredestage/{id}', [StageController::class, 'maitredestage'])
+            ->name('DRHmaitredestage');
+
+        Route::post('DRHapprobation/{id}', [StageController::class, 'approbation'])
+            ->name('DRHapprobation');
     });
 });

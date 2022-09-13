@@ -37,11 +37,15 @@
                             @if ($showRequest->approbation == true)
                             <li>
                                 <h3>Thème</h3>
+                                @if($showRequest->theme != null)
                                 {{ $showRequest->theme }}
+                                @else
+                                {{ __('Aucun thème enregistré.') }}
+                                @endif
                             </li>
                             <li>
                                 <h3>Rapport de stage</h3>
-                                {{ $showRequest->rapport }}
+                                {{ __('Aucun rapport enregistré.') }}
                             </li>
                             @endif
                         </ul><br />
@@ -94,7 +98,7 @@
                                     <button class="btn btn-secondary">Supprimer</button>
                                 </form>
                                 @if ($showRequest->invitation == false)
-                                <form method="POST">
+                                <form method="POST" action="{{ route('DRHinvitation', $showRequest->id) }}">
                                     @csrf
 
                                     <button class="btn btn-secondary">Inviter pour un entretien</button>
@@ -102,7 +106,7 @@
 
                                 <a href="{{ route ('DRHlistestage', 'newRequest') }}" class="btn btn-secondary">Fermer</a>
                                 @else
-                                <form method="POST">
+                                <form method="POST" action="{{ route('DRHmaitredestage', $showRequest->id) }}">
                                     @csrf
 
                                     <button class="btn btn-secondary">Approuver la demande</button>
@@ -112,17 +116,19 @@
                                 @endif
                             </div>
                             @else
-                            <form method="POST">
+                            <!--
+                            <form method="POST" action="{{ route('DRHlistestage', 'Rapport') }}">
                                 @csrf
 
                                 <button class="btn btn-secondary">Thème</button>
                             </form>
 
-                            <form method="POST">
+                            <form method="POST"> action="{{ route('DRHlistestage', 'Rapport') }}"
                                 @csrf
 
                                 <button class="btn btn-secondary">Rapport</button>
                             </form>
+-->
 
                             <a href="{{ route ('DRHlistestage', 'requestApproved') }}" class="btn btn-secondary">Fermer</a>
                             @endif

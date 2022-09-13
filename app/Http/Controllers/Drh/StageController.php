@@ -14,19 +14,26 @@ class StageController extends Controller
     {
         if ($param == 'newRequest') {
             $listeStage = DB::table('nstages')->where('visibilite', true)->where('invitation', false)
-                ->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin')->get();
+                ->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin', 'approbation')->get();
             $title = 'Nouvelles demandes';
         } elseif ($param == 'requestBeingProcessed') {
             $listeStage = DB::table('nstages')->where('visibilite', true)->where('invitation', true)
-                ->where('approbation', false)->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin')->get();
+                ->where('approbation', false)->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin', 'approbation')->get();
             $title = 'Demandes en cours de traitement';
         } else {
             $listeStage = DB::table('nstages')->where('visibilite', true)->where('approbation', true)
-                ->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin')->get();
+                ->orderBy('id', 'desc')->select('id', 'intitule', 'datedebut', 'datefin', 'approbation')->get();
             $title = 'Demandes acceptées';
         }
 
         return view('drh.listeStage', compact(['listeStage', 'title']));
+    }
+
+    public function maitredestage($idStage)
+    {
+        $allAgent = DB::table('agents')->where('visibilite', true)->select('id', 'nom', 'prenom')->get();
+
+        return view('drh.maitredestage', compact(['allAgent', 'idStage']));
     }
 
     public function show($id)
@@ -42,6 +49,28 @@ class StageController extends Controller
         }
 
         return view('drh.detailStage', compact(['showRequest', 'showUser']));
+    }
+
+    public function invitation($id)
+    {
+        DB::table('nstages')->whereId($id)->update([
+            'invitation' => true,
+        ]);
+
+        $showRequest = DB::table('nstages')->find($id);
+        $showUser = DB::table('users')->find($showRequest->id_user);
+
+        return view('drh.invitation', compact(['showRequest', 'showUser']));
+    }
+
+    public function approbation(Request $request, $id)
+    {
+        DB::table('nstages')->whereId($id)->update([
+            'approbation' => true,
+            'id_agent' => $request->idAgent
+        ]);
+
+        return view('drh.approbation');
     }
 
     public function destroy($id)
@@ -60,8 +89,6 @@ class StageController extends Controller
         } else {
             $param = 'requestApproved';
         }
-
-
 
         return redirect()->route('DRHlistestage', $param)->with('success', 'Demande supprimée avec succès!');
     }

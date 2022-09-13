@@ -18,8 +18,18 @@
                             @forelse ($listeStage as $stage)
                             <li>
                                 <a href="{{ route ('DRHshowrequest', $stage->id) }}">{{ $stage->intitule }}</a><br />
+                                @if($stage->approbation == false)
                                 du {{ $stage->datedebut }} au {{ $stage->datefin }}
-                            </li><br />
+                                @else
+                                @if(date('Y-m-d') < $stage->datedebut)
+                                {{ __('Stage à venir.') }}
+                                @elseif(date('Y-m-d') > $stage->datefin)
+                                {{ __('Stage terminé.') }}
+                                @else
+                                {{ __('Stage en cours.') }}
+                                @endif
+                                @endif
+                            </li>
                             @empty
                             <li>
                                 @if ($title === 'Nouvelles demandes')
